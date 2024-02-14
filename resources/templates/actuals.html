@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <style>
+        /* Styles for form */
+        .form-container {
+            margin: 20px auto;
+            padding: 20px;
+            width: 60%;
+            background-color: #f2f2f2;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input[type="text"],
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-actions {
+            text-align: center;
+        }
+        .form-actions button, .form-actions a.button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .form-actions button:first-child {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <button onclick="window.history.back()">Back</button>
+
+    <div class="form-container">
+        <h2>Material Inspection Actuals</h2>
+        <form th:action="@{/inspActualData}" method="post" th:object="${actuals}">
+            <div class="form-group">
+                <label for="lotId">Lot ID:</label>
+                <input type="text" id="lotId" name="inspLot" th:value="${insplots.lotId}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="characteristicName">Characteristic Name:</label>
+                <select name="characteristics" id="characteristicName">
+                    <option selected="selected" disabled="disabled">select characteristic</option>
+                    <option th:each="characteristic : ${matrCharacteristics}" th:value="${characteristic.matrChId}" th:text="${characteristic.chDesc}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="maxMeasure">Max Measure:</label>
+                <input type="text" id="maxMeasure" name="maxMeasure" required onchange="trimInput(this)">
+            </div>
+            <div class="form-group">
+                <label for="minMeasure">Min Measure:</label>
+                <input type="text" id="minMeasure" name="minMeasure" required onchange="trimInput(this)">
+            </div>
+            <div class="form-actions">
+                <a href="#" class="button">View Actuals</a>
+                <button type="submit">Add Actuals</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function trimInput(input) {
+            input.value = input.value.replace(/\s+/g, ' ').trim();
+        }
+    </script>
+</body>
+</html>

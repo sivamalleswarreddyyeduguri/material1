@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Management System</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links {
+            background-color: #333;
+            color: #fff;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ccc;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 600px;
+            margin: 50px auto;
+        }
+
+        .container h3 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .form-group input[type="text"],
+        .form-group select {
+            width: calc(100% - 20px);
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group select:focus {
+            outline: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-group {
+            text-align: center;
+        }
+
+        button[type="submit"],
+        button[type="button"] {
+            padding: 12px 24px;
+            background-color: #4d94ff	;
+            color: red;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 0 10px;
+            font-size: 16px;
+        }
+
+        button[type="submit"]:hover,
+        button[type="button"]:hover {
+            background-color: #4d4dff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav-links">
+    <div>
+        <a class="back-button" th:href="@{/home}">Back</a>
+    </div>
+    <div>
+        <a th:href="@{/viewMaterials}">View Materials</a>
+        <a th:href="@{/home}">Home</a>
+        <a th:href="@{/logout}">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+    <h3>Add Material</h3>
+    <form id="plantForm" th:action="@{/materialData}" method="post" th:object="${material}">
+        <div class="form-group">
+            <label for="matrId">Material ID:</label>
+            <input type="text" id="matrId" name="matrId" th:field="*{matrId}" required onchange="trimInput(this)">
+        </div>
+        
+        <div class="form-group">
+            <label for="matrDesc">Material Desc:</label>
+            <input type="text" id="matrDesc" name="matrDesc" th:field="*{matrDesc}" required onchange="trimInput(this)">
+        </div>
+        
+        <div class="form-group">
+            <label for="matrType">Material Type:</label>
+            <input type="text" id="matrType" name="matrType" th:field="*{matrType}" required onchange="trimInput(this)">
+        </div>
+        
+        <div class="button-group">
+            <button type="submit">Add Material</button>
+            <button type="button" onclick="resetForm()">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function resetForm() {
+        document.getElementById("plantForm").reset();
+    }
+    function trimInput(input) {
+        input.value = input.value.replace(/\s+/g, ' ').trim();
+    }
+</script>
+
+</body>
+</html>

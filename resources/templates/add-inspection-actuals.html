@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+  <style>
+           body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+        }
+
+        nav div {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .back-button {
+            background-color: red; 
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            margin-right: 200px; 
+            margin-top:20px;
+            text-decoration: none;
+        }
+
+       
+
+        form {
+            background-color: gray;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(20%, 50, 30, 0.1);
+            margin-top: 80px;
+            width: 350px;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            width: 40%;
+        }
+
+        input, select {
+            display: inline-block;
+            width: 55%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border:thick; 
+            border-radius: 4px;
+        }
+
+        .inline-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        button {
+            background-color: rgb(20,30,50); 
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 8px;
+        }
+
+        button:hover {
+            background-color: maroon; 
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .message {
+            margin-top: 20px;
+            text-align: center;
+            color: green;
+        }
+        .style{
+            color: orange;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+	<center><h1>Select Lot Id </h1></center>
+		
+		<form id="plantForm" th:action="@{/isplot/search}" method="get">
+    <label for="materialId">Select Material ID:</label>
+    <select id="actuals" name="lotId" required>
+    <option value="" disabled selected>Select Lot ID</option>
+    <option th:each="lot : ${inspLots}" th:value="${lot.lotId}" th:text="${lot.lotId}" th:if="${lot.inspActuals.size() != lot.matrId.matrCh.size() or lot.inspActuals.size() == 0}">Lot ID</option>
+
+  </select>
+
+     <div class="button-group">
+        <button type="submit">submit</button>
+        <button type="button" onclick="resetForm()">Cancel</button>
+    </div>
+	</form>
+</body>
+</html>

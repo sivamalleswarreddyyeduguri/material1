@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Vendor Management System</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+<style>
+.plantviewtable {
+	margin-top: 10px;
+}
+.lot{
+   
+   text-decoration: none;
+   color: black;
+   background-color: silver;
+   padding: 4px 16px;
+   border: 1px solid black;
+   border-radius: 5px;
+    
+}
+</style>
+
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-white">
+		<div class="container-fluid"></div>
+	</nav>
+
+	<center>
+		<h2>Inspection Lot Details</h2>
+	</center>
+	<div style="display: flex; gap: 30px">
+		<a style="margin-left: 70px; padding: 5px 16px; color: #000000;"
+			class="navbar-brand btn btn-light bg-danger backbutton" href="#"
+			th:href="@{/home}">Back</a>
+			<h3 th:text="${msg}" class="message" ></h3>
+		<form th:action="@{/isplot/search}">
+			<input placeholder="Lot Id" name="lotId">
+			<button>Search</button>
+		</form>
+		<a th:href="@{/search/results}" class="lot">Search Lot</a>
+		<a th:href="@{/inspectionLotForm}" class="lot">Add Inspection Lot</a>
+	</div>
+	<div style="width: 100%; padding: 10px 30px;">
+		<div class="plantviewtable ">
+			<table style="width: 100%"
+				class="table table-bordered w-100 mx-auto my-auto table-striped">
+				<thead>
+					<tr>
+						<th style="width: 120px">Lot Id</th>
+						<th>Material</th>
+						<th style="width: 120px">Created On</th>
+						<th style="width: 120px">Start Date</th>
+						<th style="width: 120px">End Date</th>
+						<th style="width: 140px">Plant Id</th>
+						<th style="width: 120px">Vendor Id</th>
+						<th>Result</th>
+						<th>Remarks</th>
+						<th>Operations</th>
+						<th style="width: 120px">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="insplot : ${inspLots}">
+						<td th:text="${insplot.lotId}"></td>
+						<td th:text="${insplot.matrId.matrDesc}"></td>
+						<td th:text="${insplot.createdOn}"></td>
+						<td th:text="${insplot.inspStDate}"></td>
+						<td th:text="${insplot.inspEndDate}"></td>
+						<td th:text="${insplot.plantId.plantId}"></td>
+						<td th:text="${insplot.vendor.vendorId}"></td>
+						<td th:text="${insplot.result}"
+							th:class="${insplot.result == 'PASS' ? 'text-success' : 'text-danger' }"></td>
+						<td th:text="${insplot.remarks}"></td>
+						<td th:id="actions"><a
+							th:if="${insplot.inspActuals.size()!=0}"
+							th:href="@{'/view-actuals/' + ${insplot.lotId}}"> <i
+								class="fa fa-eye text-success"></i>
+						</a> &nbsp; &nbsp; <a
+							th:if="${insplot.result == 'Inspection completed'}"
+							th:href="@{'/edit-lot/' + ${insplot.lotId}}"> <i
+								class="fa fa-edit text-danger"></i>
+						</a> &nbsp; &nbsp;</td>
+						<td>
+
+							<div class="card-body p-2"
+								th:if="${insplot.inspActuals.size() != insplot.matrId.matrCh.size() or insplot.inspActuals.size() == 0 or insplot.matrId.matrCh.size() == 0}">
+								<a th:href="@{'/addActual/' + ${insplot.lotId}}"
+									class="btn btn-success btn-sm"
+									style="background-color: graytext;"> <i></i> Add Actuals
+								</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

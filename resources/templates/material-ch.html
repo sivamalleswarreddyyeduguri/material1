@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Material Management System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <style>
+        body {
+            background-color: #f8f9fa; 
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .table {
+            background-color: #ffffff; 
+        }
+        th, td {
+            color: #212529; 
+        }
+       .back-button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div class="container" th:href="@{/view-material}">
+      <a class="back-button" th:href="@{/viewMaterials}">Back</a>
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Characteristics Description</th>
+                    <th>Tolerance Upper Limit</th>
+                    <th>Tolerance Lower Limit</th>
+                    <th>Unit of Measurements</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="char : ${materialCharacter}">
+                    <td th:text="${char.chDesc}"></td>
+                    <td th:text="${char.tolUl}"></td>
+                    <td th:text="${char.tolLl}"></td>
+                    <td th:text="${char.uom}"></td>
+                    <td>
+                      <a th:href="@{'/edit-characteristics/' + ${char.matrChId}}">
+                         <i class="fa fa-edit text-info"></i>
+                        </a> &nbsp; &nbsp;
+                        <a th:href="@{'/delete-materialCharacteristics/' + ${char.matrChId}}">
+                      <i class="fa fa-trash text-danger"></i>
+                       </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .welcome-message {
+            text-align: center;
+            padding: 10px;
+            color: orange;
+            font-size: 25px;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 20px;
+            text-align: right;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            margin: 0 15px;
+            font-size: 18px;
+        }
+
+        .modules-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px;
+        }
+
+        .module-link {
+            text-decoration: none;
+            color: #333;
+            border-radius: 5px;
+            text-align: center;
+            transition: transform 0.3s;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+            border: 1px solid #2980b9;
+        }
+
+        .module-link:hover {
+            transform: scale(1.05);
+        }
+
+        .module-link span {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-message">
+        <p>Welcome to Home Page!</p>
+    </div>
+
+    <nav>
+    <a th:href="@{/home}" class="nav-link">Home</a>
+
+        <a th:href="@{/logout}" class="nav-link">Logout</a>
+    </nav>
+
+
+    <div class="modules-container">
+        <a th:href="@{/vendor}"  class="module-link">
+            <span>Vendor</span>
+        </a>
+
+        <a th:href="@{/plant}" class="module-link">
+            <span>Plant</span>
+        </a>
+
+        <a th:href="@{/materials}" class="module-link">
+            <span>Material</span>
+        </a>
+
+        <a th:href="@{/materialCh}" class="module-link">
+            <span>Material Characteristics</span>
+        </a>
+
+        <a th:href="@{/inspectionLotForm}" class="module-link">
+            <span>Inspection</span>
+        </a>
+        
+        <a th:href="@{/select/lotid}" class="module-link">
+            <span>Add Inspection Actuals</span>
+        </a> 
+        
+        <a th:href="@{/search/results}" class="module-link">
+            <span>Search Criteria</span>
+        </a> 
+
+    </div>
+
+  
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit-id.js" crossorigin="anonymous"></script>
+</body>
+</html>
